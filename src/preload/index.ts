@@ -1,13 +1,12 @@
 import { contextBridge } from 'electron'
-import { electronAPI } from '@electron-toolkit/preload'
 
-if (process.contextIsolated) {
-  throw new Error('contextIsolation mus be enable in the BrowserWindow')
+if (!process.contextIsolated) {
+  throw new Error('contextIsolation must be enable in the BrowserWindow')
 }
 
 try {
   contextBridge.exposeInMainWorld('context', {
-    //TODO: Add your own API here
+    locale: navigator.language
   })
 } catch (error) {
   console.log('contextBridge.exposeInMainWorld error:', error)
